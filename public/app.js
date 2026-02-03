@@ -54,7 +54,9 @@ const elements = {
     totalNodes: document.getElementById('totalNodes'),
     linkedinNodes: document.getElementById('linkedinNodes'),
     sheetsNodes: document.getElementById('sheetsNodes'),
-    aiNodes: document.getElementById('aiNodes')
+    aiNodes: document.getElementById('aiNodes'),
+    // Dynamic Tabs Container
+    sheetTabsContainer: document.getElementById('sheetTabsContainer')
 };
 
 // ========================================
@@ -87,8 +89,8 @@ async function initializeDashboard() {
         // Get current execution status
         await fetchCurrentStatus();
 
-        // Try to fetch initial sheets data
-        await fetchSheetsData(dataTableState.currentSheet);
+        // Build dynamic sheet tabs and fetch initial data
+        await buildSheetTabs();
 
     } catch (error) {
         console.error('Initialization error:', error);
@@ -98,22 +100,93 @@ async function initializeDashboard() {
     await fetchExecutions();
 }
 
+// Build dynamic sheet tabs from available cached sheets
+async function buildSheetTabs() {
+    const container = elements.sheetTabsContainer;
+    if (!container) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/api/sheets/list`);
+        const data = await response.json();
+
+        if (data.success && data.sheets && data.sheets.length > 0) {
+            container.innerHTML = '';
+
+            data.sheets.forEach((sheetName, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'sheet-tab' + (index === 0 ? ' active' : '');
+                btn.dataset.sheet = sheetName;
+                btn.textContent = formatSheetTabName(sheetName);
+                container.appendChild(btn);
+            });
+
+            // Set initial sheet and setup listeners
+            dataTableState.currentSheet = data.sheets[0];
+            setupSheetTabListeners();
+
+            // Fetch initial data
+            await fetchSheetsData(data.sheets[0]);
+        } else {
+            container.innerHTML = '<span class="tabs-loading">No sheets available - trigger a workflow</span>';
+        }
+    } catch (error) {
+        console.error('Failed to build sheet tabs:', error);
+        container.innerHTML = '<span class="tabs-loading">Failed to load sheets</span>';
+    }
+}
+
+// Format sheet name for display in tabs
+function formatSheetTabName(name) {
+    if (!name) return '';
+    return name
+        .replace(/_/g, ' ')
+        .replace(/Google Sheets\d+/g, match => `Sheet ${match.replace('Google Sheets', '')}`)
+        .replace(/Intelligence/g, 'Intel');
+}
+
+// Setup click listeners for sheet tabs
+function setupSheetTabListeners() {
+    const tabs = document.querySelectorAll('.sheet-tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const newSheet = tab.dataset.sheet;
+            console.log(`[UI] Switching to sheet: ${newSheet}`);
+
+            // Update active state
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Reset table state for new sheet
+            dataTableState.currentSheet = newSheet;
+            dataTableState.page = 1;
+            dataTableState.search = '';
+            dataTableState.sortBy = '';
+            dataTableState.sortOrder = 'asc';
+
+            // Clear search input
+            if (elements.sheetsSearch) elements.sheetsSearch.value = '';
+
+            // Clear previous data and show loading
+            if (elements.sheetsDataContainer) {
+                elements.sheetsDataContainer.innerHTML = `
+                    <div class="loading-placeholder" style="padding: 40px;">
+                        <div class="spinner"></div>
+                        <span>Loading ${formatSheetTabName(newSheet)} data...</span>
+                    </div>
+                `;
+            }
+
+            // Fetch data for selected sheet
+            fetchSheetsData(newSheet);
+        });
+    });
+}
+
 function setupEventListeners() {
     // Trigger form
     elements.triggerForm.addEventListener('submit', handleTriggerSubmit);
 
-    // Sheet tabs
-    document.querySelectorAll('.sheet-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.sheet-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            dataTableState.currentSheet = tab.dataset.sheet;
-            dataTableState.page = 1;
-            dataTableState.search = '';
-            if (elements.sheetsSearch) elements.sheetsSearch.value = '';
-            fetchSheetsData(tab.dataset.sheet);
-        });
-    });
+    // Note: Sheet tab listeners are set up in buildSheetTabs() after dynamic creation
 
     // Search with debounce
     if (elements.sheetsSearch) {

@@ -479,54 +479,82 @@ async function fetchExecutionData(executionId) {
     }
 
     const runData = execution.data.resultData.runData || {};
-    let sheetsData = [];
-    let foundNode = null;
+    const allSheetsData = {};
+    let totalRowsFound = 0;
 
-    // Priority 1: Look for "Get Many" Google Sheets node
+    // Map workflow node names to user-friendly sheet names
+    const nodeToSheetMap = {
+      'Google Sheets2': 'Leads Master',
+      'Google Sheets3': 'Company_Profile',
+      'Google Sheets4': 'Content_Intelligence',
+      'Google Sheets5': 'Content_Intelligence',
+      'Google Sheets6': 'Content_Intelligence',
+      'Google Sheets7': 'Content_Intelligence',
+      'Google Sheets8': 'Company_Profile',
+      'Google Sheets9': 'Company_Profile',
+      'Google Sheets11': 'Leads Master',
+      'Google Sheets12': 'Content_Intelligence'
+    };
+
+    // Generic fallback patterns
+    const sheetNodePatterns = [
+      { pattern: 'leads', sheetName: 'Leads Master' },
+      { pattern: 'content', sheetName: 'Content_Intelligence' },
+      { pattern: 'company', sheetName: 'Company_Profile' },
+      { pattern: 'aplify', sheetName: 'Aplify Testing' }
+    ];
+
     for (const [nodeName, nodeRuns] of Object.entries(runData)) {
       const lowerName = nodeName.toLowerCase();
-      if (lowerName.includes('get many') || lowerName.includes('sheet') || lowerName.includes('google')) {
-        const data = extractNodeOutput(nodeRuns);
-        if (data && data.length > 0) {
-          sheetsData = data;
-          foundNode = nodeName;
-          console.log(`[FETCH] Found ${sheetsData.length} rows from: ${nodeName}`);
-          break;
+      // Inspect all nodes for potential data
+      const data = extractNodeOutput(nodeRuns);
+
+      if (data && data.length > 0) {
+        let assignedSheetName = nodeToSheetMap[nodeName];
+
+        // If no specific map, try pattern matching
+        if (!assignedSheetName) {
+          for (const { pattern, sheetName } of sheetNodePatterns) {
+            if (lowerName.includes(pattern)) {
+              assignedSheetName = sheetName;
+              break;
+            }
+          }
+        }
+
+        // If assigned a sheet name, cache it
+        if (assignedSheetName) {
+          // If we haven't seen this sheet yet, OR if this node has more data (likely the final aggregate)
+          if (!allSheetsData[assignedSheetName] || data.length >= allSheetsData[assignedSheetName].data.length) {
+            allSheetsData[assignedSheetName] = {
+              data: data,
+              receivedAt: new Date().toISOString(),
+              source: nodeName
+            };
+            totalRowsFound += data.length;
+            console.log(`[FETCH] Mapped ${nodeName} -> ${assignedSheetName} (${data.length} rows)`);
+          }
         }
       }
     }
 
-    // Priority 2: Find any node with substantial data output
-    if (sheetsData.length === 0) {
-      for (const [nodeName, nodeRuns] of Object.entries(runData)) {
-        const data = extractNodeOutput(nodeRuns);
-        if (data && data.length > 5) { // Look for nodes with meaningful output
-          sheetsData = data;
-          foundNode = nodeName;
-          console.log(`[FETCH] Using output from: ${nodeName} (${sheetsData.length} items)`);
-          break;
-        }
+    // Merge all found sheets into cache
+    if (Object.keys(allSheetsData).length > 0) {
+      Object.assign(cachedSheetsData, allSheetsData);
+
+      const sheetNames = Object.keys(allSheetsData);
+      console.log(`[FETCH] Cached data for: ${sheetNames.join(', ')}`);
+
+      // Broadcast updates
+      for (const [sheetName, sheetInfo] of Object.entries(allSheetsData)) {
+        broadcast({
+          type: 'sheets_data_update',
+          sheetName: sheetName,
+          totalRows: sheetInfo.data.length
+        });
       }
-    }
 
-    if (sheetsData.length > 0) {
-      const sheetName = 'Aplify Testing';
-      cachedSheetsData[sheetName] = {
-        data: sheetsData,
-        receivedAt: new Date().toISOString(),
-        source: foundNode
-      };
-
-      console.log(`[FETCH] Cached ${sheetsData.length} rows for: ${sheetName}`);
-
-      broadcast({
-        type: 'sheets_data_update',
-        sheetName: sheetName,
-        data: sheetsData,
-        totalRows: sheetsData.length
-      });
-
-      return sheetsData;
+      return allSheetsData;
     }
 
     console.log('[FETCH] No sheets data found in execution output');

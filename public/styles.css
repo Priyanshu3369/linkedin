@@ -881,19 +881,59 @@ body {
     border-color: rgba(245, 158, 11, 0.3);
 }
 
+/* Sheets Data Container */
+.sheets-data-container {
+    width: 100%;
+    overflow: hidden;
+    /* Prevent container itself from scrolling, let wrapper do it */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Table Wrapper */
 .table-wrapper {
     overflow-x: auto;
+    overflow-y: visible;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     background: rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar styling for horizontal scroll */
+.table-wrapper::-webkit-scrollbar {
+    height: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
 }
 
 /* Data Table */
 .data-table {
-    width: 100%;
+    width: max-content;
+    min-width: 100%;
     border-collapse: collapse;
     font-size: 0.9rem;
+}
+
+/* Tabs loading state */
+.tabs-loading {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 8px 16px;
 }
 
 .data-table th {

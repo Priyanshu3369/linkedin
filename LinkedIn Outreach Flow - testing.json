@@ -1,0 +1,4797 @@
+{
+  "name": "LinkedIn Outreach Flow - testing",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "40b019d7-95b2-4df4-8430-867da6a22493",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        -1824,
+        2672
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"salesNavigatorParams\": {\n      \"current_titles\": \"title1\",\n      \"current_companies\": \"company1\",\n      \"location\": \"location1\",\n      \"industry\": \"industry1\",\n      \"company_sizes\": [\n        \"Self-employed\",\n        \"1-10\",\n        \"11-50\",\n        \"51-200\",\n        \"201-500\",\n        \"501-1,000\",\n        \"1,001-5,000\",\n        \"5,001-10,000\",\n        \"10,001+\"\n      ]\n    },\n    \"count\": 10\n  },\n  {\n    \"salesNavigatorParams\": {\n      \"current_titles\": \"title2\",\n      \"current_companies\": \"company2\",\n      \"location\": \"location2\",\n      \"industry\": \"industry2\",\n      \"company_sizes\": [\n        \"Self-employed\",\n        \"1-10\",\n        \"11-50\",\n        \"51-200\",\n        \"201-500\",\n        \"501-1,000\",\n        \"1,001-5,000\",\n        \"5,001-10,000\",\n        \"10,001+\"\n      ]\n    },\n    \"count\": 10\n  }\n]"
+      },
+      "id": "24374870-326a-413e-a33a-e2fe4bcebb57",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "position": [
+        -1616,
+        2688
+      ],
+      "notesInFlow": true,
+      "typeVersion": 1.2,
+      "notes": "For changing limits use \"count\""
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1378370213,
+          "mode": "list",
+          "cachedResultName": "Leads Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=1378370213"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URL": "NA",
+            "Company Linkedin URN": "={{ $('Read companies').item.json['Company Linkedin URN'] }}"
+          },
+          "matchingColumns": [
+            "Company Linkedin URN"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Profile URL",
+              "displayName": "Profile URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Headline",
+              "displayName": "Headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Is Premium",
+              "displayName": "Is Premium",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Linkedin URN",
+              "displayName": "Company Linkedin URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Linkedin URL",
+              "displayName": "Company Linkedin URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company URL",
+              "displayName": "Company URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Description",
+              "displayName": "Company Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Joined At",
+              "displayName": "Joined At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "24d55177-5618-42a7-bce1-469b7e409809",
+      "name": "Google Sheets2",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        112,
+        3616
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "e5ad372f-d703-4272-be90-ca1cd73fef38",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -448,
+        3088
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3,
+      "waitBetweenTries": 1000
+    },
+    {
+      "parameters": {
+        "content": "Find leads in LinkedIn",
+        "width": 1320,
+        "color": 4
+      },
+      "id": "1ed9e040-3d7b-407d-b65f-4a7561d5f0e4",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1904,
+        1952
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Get company website ",
+        "width": 980,
+        "color": 4
+      },
+      "id": "5c220166-315d-4be6-9a6c-2ebf34c60d43",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -528,
+        1952
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Research company website",
+        "width": 1520,
+        "color": 4
+      },
+      "id": "20a80f56-c471-41b2-8354-70c31e44bc1b",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        1408
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Score data",
+        "width": 980,
+        "color": 4
+      },
+      "id": "47bbbc51-a18a-4453-98b7-1a4584e20a0c",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2064,
+        1952
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Communicate with leads",
+        "width": 1860,
+        "color": 4
+      },
+      "id": "5488a004-fc7e-4f64-b2b0-e73ddab72afe",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3088,
+        1952
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Research lead LN post",
+        "width": 1520,
+        "color": 4
+      },
+      "id": "c6ead485-0aa2-4200-ae8e-f34162d8e638",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        1600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Research company LN post",
+        "width": 1520,
+        "color": 4
+      },
+      "id": "517ff344-adb0-4cee-baab-419644d276d0",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        1952
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Research company News",
+        "width": 1520,
+        "color": 4
+      },
+      "id": "4e7f5a56-fd49-40ac-84c7-abd963ba3df0",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        496,
+        1776
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "bf2a1d73-cc9b-49e4-b2f6-02c1bffc97bb",
+      "name": "HDW LinkedIn SN",
+      "type": "n8n-nodes-hdw.hdwLinkedin",
+      "position": [
+        -1344,
+        2272
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "alwaysOutputData": false,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "pVSio9gtNX0SaDa2",
+          "name": "HDW LinkedIn account 3"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "7ae3bd1f-c61b-4482-8eae-65d83d0f3e6c",
+      "name": "HDW Get Company Website",
+      "type": "n8n-nodes-hdw.hdwLinkedin",
+      "position": [
+        -64,
+        3456
+      ],
+      "notesInFlow": true,
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "pVSio9gtNX0SaDa2",
+          "name": "HDW LinkedIn account 3"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 953562872,
+          "mode": "list",
+          "cachedResultName": "Company_Profile",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=953562872"
+        },
+        "options": {}
+      },
+      "id": "3e1aba57-5e55-4346-a2c1-d1a3ccf89360",
+      "name": "Google Sheets3",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        320,
+        2336
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 10,
+        "options": {}
+      },
+      "id": "01b3ae53-5b08-4361-8c8c-35dd28c30c7d",
+      "name": "Loop Over Items1",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        832,
+        2320
+      ],
+      "retryOnFail": false,
+      "typeVersion": 3,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "options": {}
+      },
+      "id": "6cbcff9b-1d95-4d7b-b153-b7a88a9bd036",
+      "name": "Google Sheets4",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        432,
+        2816
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "f570e5c1-c197-4dca-b52e-493b241a825e",
+      "name": "HDW Get User Posts",
+      "type": "n8n-nodes-hdw.hdwLinkedin",
+      "position": [
+        1008,
+        2896
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "pVSio9gtNX0SaDa2",
+          "name": "HDW LinkedIn account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "=posts.text",
+              "renameField": true,
+              "outputFieldName": "posts_text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b25c8aa8-4ab8-4394-808e-346056cff67b",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1824,
+        2880
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5889b8f9-2f19-40e1-b5d9-49a09a7ada06",
+      "name": "Loop Over Items2",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1024,
+        2720
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URN": "={{ $('Google Sheets4').item.json['Company URN'] }}",
+            "Lead Posts Summary": "={{ $json.message.content }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Posts Summary",
+              "displayName": "Lead Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Posts Summary",
+              "displayName": "Company Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company News Summary",
+              "displayName": "Company News Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Key Topics",
+              "displayName": "Key Topics",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Pain Signals",
+              "displayName": "Pain Signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Buying Signals",
+              "displayName": "Buying Signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Researched At",
+              "displayName": "Last Researched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "37461b8c-0dbc-4468-ae17-d014dbafd0e2",
+      "name": "Google Sheets5",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2320,
+        2880
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "options": {}
+      },
+      "id": "762bd2da-bc91-4e7f-9d42-f606d96bccb0",
+      "name": "Google Sheets6",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        544,
+        3296
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "news.summary"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aec080ce-2afb-4638-960e-5c1dd8c80643",
+      "name": "Aggregate1",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1568,
+        3296
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "9896735d-8724-4668-bc4f-48d59bcc492f",
+      "name": "Loop Over Items3",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1024,
+        3136
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URN": "={{ $('Google Sheets6').item.json['Company URN'] }}",
+            "Company News Summary": "={{ $json.message.content }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Posts Summary",
+              "displayName": "Lead Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Posts Summary",
+              "displayName": "Company Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company News Summary",
+              "displayName": "Company News Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Key Topics",
+              "displayName": "Key Topics",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Pain Signals",
+              "displayName": "Pain Signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Buying Signals",
+              "displayName": "Buying Signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Researched At",
+              "displayName": "Last Researched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "ba3a45f6-86cf-45f5-8a7b-045812db8195",
+      "name": "Google Sheets7",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2096,
+        3296
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "options": {}
+      },
+      "id": "3431e259-2510-4877-8df0-fa11fed0c45f",
+      "name": "Google Sheets8",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        576,
+        3616
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "337ecd4a-2877-4c6e-8a6c-23fb70ede0b9",
+      "name": "Aggregate2",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1616,
+        3744
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "949237be-71f9-45f0-905f-75ac25034ec3",
+      "name": "Loop Over Items4",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1024,
+        3648
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URN": "={{ $('Google Sheets8').item.json['Company URN'] }}",
+            "Company Posts Summary": "={{ $json.message.content }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Lead Posts Summary",
+              "displayName": "Lead Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Posts Summary",
+              "displayName": "Company Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company News Summary",
+              "displayName": "Company News Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Meta Description",
+              "displayName": "Meta Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Form",
+              "displayName": "Has Form",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Chatbot",
+              "displayName": "Has Chatbot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Careerpage",
+              "displayName": "Has Careerpage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "analytics_detected",
+              "displayName": "analytics_detected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "missing items",
+              "displayName": "missing items",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scrapped at ",
+              "displayName": "Scrapped at ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Researched At",
+              "displayName": "Last Researched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Lead Score",
+              "displayName": "Lead Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Score Reason",
+              "displayName": "Score Reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Connected",
+              "displayName": "Connected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "meta_description",
+              "displayName": "meta_description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "h1",
+              "displayName": "h1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "h2",
+              "displayName": "h2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "links",
+              "displayName": "links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "body_text",
+              "displayName": "body_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "signals",
+              "displayName": "signals",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "missing_items",
+              "displayName": "missing_items",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "1e08a4a9-78c4-487f-acd8-ea3d02b155e3",
+      "name": "Google Sheets9",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2160,
+        3744
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "ecb9205c-fd0c-4474-8f1c-ce6eb8101c37",
+      "name": "HDW Get Company News",
+      "type": "n8n-nodes-hdw.hdwLinkedin",
+      "position": [
+        1008,
+        3328
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "pVSio9gtNX0SaDa2",
+          "name": "HDW LinkedIn account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "id": "eb05e278-0db1-4f5a-a4ea-c2faded1bf2d",
+      "name": "HDW Get Company Posts",
+      "type": "n8n-nodes-hdw.hdwLinkedin",
+      "position": [
+        1008,
+        3872
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "pVSio9gtNX0SaDa2",
+          "name": "HDW LinkedIn account 3"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "id": "7a26acd4-8b06-4917-ae3b-1808e5c39ca2",
+      "name": "Split Out",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        -1488,
+        2480
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "6f1276ab-a9cd-4e3c-b347-3dcd51dce0be",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1040,
+        2576
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Make summary of this text:\n{{ $json.posts_text }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e46a5042-7277-4c8a-b024-1e9bab58450d",
+      "name": "Summarise user posts",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        2032,
+        2880
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Make summary of this news:\n{{ $json.summary }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e024a685-cd54-44a1-9657-4092a480de3d",
+      "name": "Summarise company news",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1728,
+        3296
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Make summary of this company posts:\n{{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c48f191d-3b59-4048-96e4-69e6d6a29691",
+      "name": "Summarise company posts",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1808,
+        3744
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Research company website {{ $json['Company URL'] }} and get summary about business and products\n1. Get site-map with the tool\n2. Define what links may contain data about company business and products\n3. Scrape data for every links\n4. Summarize info from website ",
+        "options": {}
+      },
+      "id": "e32e52f7-f27d-40a7-9956-2f4d2219d781",
+      "name": "Summarise company website",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1120,
+        2320
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "options": {}
+      },
+      "id": "7bcaf1e6-d7db-4847-92d8-d55a14c93f86",
+      "name": "Google Sheets11",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        3392,
+        3088
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "0f81655d-4aab-454d-a58b-8b79f66fb81a",
+      "name": "Loop Over Items6",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        3680,
+        3136
+      ],
+      "retryOnFail": true,
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 433681146,
+          "mode": "list",
+          "cachedResultName": "Content_Intelligence",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=433681146"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead Score": "={{ $json.message.content }}",
+            "Company URN": "={{ $('Google Sheets11').item.json[\"Company URN\"] }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Posts Summary",
+              "displayName": "Lead Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Posts Summary",
+              "displayName": "Company Posts Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company News Summary",
+              "displayName": "Company News Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Meta Description",
+              "displayName": "Meta Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Form",
+              "displayName": "Has Form",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Chatbot",
+              "displayName": "Has Chatbot",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Has Careerpage",
+              "displayName": "Has Careerpage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "analytics_detected",
+              "displayName": "analytics_detected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "missing items",
+              "displayName": "missing items",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scrapped at ",
+              "displayName": "Scrapped at ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Researched At",
+              "displayName": "Last Researched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Lead Score",
+              "displayName": "Lead Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Score Reason",
+              "displayName": "Score Reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "2afa6c0f-504b-4ec7-9ca1-1c6af3c98063",
+      "name": "Google Sheets12",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        4016,
+        2976
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000/api/workflow/callback",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"status\": \"completed\",\n  \"sheetName\": \"Content_Intelligence\",\n  \"data\": {{ JSON.stringify($input.all().map(item => item.json)) }}\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "83dfd9ba-93b3-4231-8150-480ae0847b4e",
+      "name": "Send Data to Dashboard",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        4304,
+        2976
+      ],
+      "typeVersion": 4.2,
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "# LinkedIn Lead Automation Flow\n\nThis flow is designed to automate working with leads on LinkedIn from the process of finding leads according to ICP (Ideal Customer Profile) to sending messages in chat.\n\n## Stages:\n1. Building search filters based on your ICP\n2. Searching LinkedIn using these filters\n3. Saving the list of leads in Google Spreadsheet\n4. Data enrichment\n  • Company website\n  • Intent search in lead's posts\n  • Intent search in company posts\n  • Analysis of company news\n  • Analysis of company website\n5. Scoring information about the lead to prioritize interaction\n6. Adding the lead to LinkedIn connections\n7. Checking for reciprocal connection\n8. Writing messages\n\n## Requirements:\n1. Access to LLM (the example uses OpenAI API)\n2. Access to Google Drive\n3. API key for horizondatawave.ai\n4. LinkedIn account",
+        "height": 640,
+        "width": 620,
+        "color": 7
+      },
+      "id": "97e40fc5-80ef-49e8-84f0-b55e9c930647",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -2784,
+        2208
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "This node - an AI agent transforms your ICP description into filters for querying data in LinkedIn",
+        "height": 80,
+        "width": 300,
+        "color": 7
+      },
+      "id": "c990640e-fcfd-420f-a697-4f595b8d6e68",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1776,
+        2256
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "Data is requested through the HDW API for each filter and saved in Google Sheets.",
+        "height": 80,
+        "width": 320,
+        "color": 7
+      },
+      "id": "74fb427c-b89c-4109-b8f0-ef94cb2435b1",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1056,
+        2768
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "At this stage, the presence of the company name in the lead's profile is verified, and a website search is performed for each company",
+        "height": 120,
+        "width": 320,
+        "color": 7
+      },
+      "id": "90e9bc57-3f1f-48ac-879d-5547b6f1c322",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -144,
+        2272
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "You can modify the prompt here so that at this stage the search corresponds to your product. \nFor example, you can explicitly mark mentions of certain topics, locations, or other entities.",
+        "height": 100,
+        "width": 360,
+        "color": 5
+      },
+      "id": "de74f406-b966-4d99-94e9-99bbab4aa8b3",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1280,
+        2160
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "You can modify the prompt here so that at this stage the search corresponds to your product. \nFor example, you can explicitly mark mentions of certain topics, locations, or other entities.",
+        "height": 100,
+        "width": 360,
+        "color": 5
+      },
+      "id": "f629b3cf-c501-4ddf-9a43-703d9dd9b27c",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1728,
+        2720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "You can modify the prompt here so that at this stage the search corresponds to your product. \nFor example, you can explicitly mark mentions of certain topics, locations, or other entities.",
+        "height": 100,
+        "width": 360,
+        "color": 5
+      },
+      "id": "d435e7f4-5a7b-423b-b601-18f41a02654e",
+      "name": "Sticky Note14",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2400,
+        3136
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "You can modify the prompt here so that at this stage the search corresponds to your product. \nFor example, you can explicitly mark mentions of certain topics, locations, or other entities.",
+        "height": 100,
+        "width": 360,
+        "color": 5
+      },
+      "id": "c7382ccd-9051-4dab-88d0-00a9889eccaf",
+      "name": "Sticky Note15",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2096,
+        3648
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "You can also change the scoring criteria to assess the probability of need based on your product or business by adjusting the prompt in this node",
+        "height": 100,
+        "width": 360,
+        "color": 5
+      },
+      "id": "b843d8a4-baa1-4ca3-adaa-86a915fcbd5e",
+      "name": "Sticky Note16",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3600,
+        2992
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=ICP  description - {{ $json.output }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "Your task is to analyze an ICP (Ideal Customer Profile) description and convert it into LinkedIn Sales Navigator search parameters that are compatible with the HDW LinkedIn node in n8n.\n\n⸻\n\nHard rules (do not break them)\n\t1.\tNo guesswork.\n\t•\tNever invent new values for location, industry, current_companies, or any other field. Use only what is explicitly present in the ICP.\n\t2.\tReal companies only.\n\t•\tThe current_companies field may contain only company names that are directly mentioned in the ICP.\n\t3.\tNo fabricated locations.\n\t•\tIn location, specify only countries or cities that appear in the ICP.\n\t4.\t“Smart” filter combinations.\n\t•\tIf the ICP includes several locations and/or industries, generate multiple objects (filters)—one for each unique combination of actual values (do not create combinations that do not exist in the ICP).\n\t•\tReturn a maximum of 10 filters in one response.\n\t5.\tOmit undefined data.\n\t•\tIf a field is missing in the ICP, omit that key entirely (do not output null, empty strings, or empty arrays).\n\n\t7.\tIndustry list only.\n\t•\tFor industry, you may use only the names from the approved list (see below). Try with different industries in different filters\n\t8.\tJSON validation.\n\t•\tThe final answer must be a valid JSON array in the exact structure shown under “Response Format.”\n\t9.\tUp to 10 filters.\n\t•\tYou may return no more than ten filter objects per ICP request.\n\t10.\tUnclear roles → multiple title variants.\n\t•\tIf job roles/titles are not specified precisely in the ICP (e.g., only a function or department is mentioned), create several filters that cover plausible title variants.\n\t•\tEach variant goes into its own filter object (or grouped logically if other parameters are identical), still respecting the overall limit of 10 filters.\n\t•\tUse common, realistic synonyms or seniority variations relevant to the ICP \n\t•\tDo not invent wholly unrelated titles; stay within the role scope implied by the ICP.\n\nResponse Format\n\nReturn only a JSON array with no comments, explanations, or extra text. Each object represents one filter.\n\n[\n  {\n    \"salesNavigatorParams\": {\n      \"current_titles\": \"title1\",\n      \"current_companies\": \"company1\",\n      \"location\": \"location1\",\n      \"industry\": \"industry1\",\n      \"company_sizes\": [\n        \"Self-employed\",\n        \"1-10\",\n        \"11-50\",\n        \"51-200\",\n        \"201-500\",\n        \"501-1,000\",\n        \"1,001-5,000\",\n        \"5,001-10,000\",\n        \"10,001+\"\n      ]\n    },\n    \"count\": 10\n  },\n  {\n    \"salesNavigatorParams\": {\n      \"current_titles\": \"title2\",\n      \"current_companies\": \"company2\",\n      \"location\": \"location2\",\n      \"industry\": \"industry2\",\n      \"company_sizes\": [\n        \"Self-employed\",\n        \"1-10\",\n        \"11-50\",\n        \"51-200\",\n        \"201-500\",\n        \"501-1,000\",\n        \"1,001-5,000\",\n        \"5,001-10,000\",\n        \"10,001+\"\n      ]\n    },\n    \"count\": 10\n  }\nother filters\n]\n\nImportant: If a field does not apply, omit it entirely. For example, if company size is not specified, remove the whole company_sizes block.\n\n\n• (Allowed values for industry) If you need industry name use one from this list closer to the user request:\nChiropractors \nDefense and Space Manufacturing\nOptometrists\nComputer Hardware Manufacturing\nSoftware Development\nComputer Networking Products\nTransportation Equipment Manufacturing\nTechnology, Information and Internet\nPhysical, Occupational and Speech Therapists\nSemiconductor Manufacturing\nTelecommunications\nLaw Practice\nHousing Programs\nLegal Services\nBusiness Consulting and Services\nBiotechnology Research\nFamily Planning Centers\nMedical Practices\nTransportation Programs\nHospitals and Health Care\nUtilities Administration\nPharmaceutical Manufacturing\nOutpatient Care Centers\nVeterinary Services\nMedical Equipment Manufacturing\nSpace Research and Technology\nMotor Vehicle Parts Manufacturing\nPersonal Care Product Manufacturing\nRetail Apparel and Fashion\nSporting Goods Manufacturing\nTobacco Manufacturing\nMedical and Diagnostic Laboratories\nRetail Groceries\nFood and Beverage Manufacturing\nOil Extraction\nComputers and Electronics Manufacturing\nNatural Gas Extraction\nManufacturing\nFurniture and Home Furnishings Manufacturing\nHome Health Care Services\nRetail\nEmbedded Software Products\nEntertainment Providers\nMobile Computing Software Products\nGambling Facilities and Casinos\nAmbulance Services\nDesktop Computing Software Products\nIT System Custom Software Development\nTravel Arrangements\nIT System Operations and Maintenance\nHospitality\nIT System Installation and Disposal\nRestaurants\nIT System Training and Support\nHospitals\nSpectator Sports\nIT System Data Services\nFood and Beverage Services\nIT System Testing and Evaluation\nMovies, Videos, and Sound\nBroadcast Media Production and Distribution\nMuseums, Historical Sites, and Zoos\nArtists and Writers\nPerforming Arts\nRecreational Facilities\nBanking\nInsurance\nNursing Homes and Residential Care Facilities\nFinancial Services\nReal Estate\nInvestment Banking\nInvestment Management\nAccounting\nConstruction\nWholesale Building Materials\nArchitecture and Planning\nCivil Engineering\nInternet News\nAviation and Aerospace Component Manufacturing\nBlogs\nMotor Vehicle Manufacturing\nInterior Design\nChemical Manufacturing\nSocial Networking Platforms\nMachinery Manufacturing\nHousehold and Institutional Furniture Manufacturing\nBusiness Intelligence Platforms\nMining\nBusiness Content\nOil and Gas\nData Security Software Products\nShipbuilding\nUtilities\nMobile Gaming Apps\nTextile Manufacturing\nInternet Publishing\nPaper and Forest Product Manufacturing\nMedia and Telecommunications\nRailroad Equipment Manufacturing\nBlockchain Services\nFarming\nServices for the Elderly and Disabled\nRanching\nDairy Product Manufacturing\nOffice Furniture and Fixtures Manufacturing\nFisheries\nCommunity Services\nPrimary and Secondary Education\nHigher Education\nEducation Administration Programs\nResearch Services\nMattress and Blinds Manufacturing\nArmed Forces\nLegislative Offices\nAdministration of Justice\nInternational Affairs\nEmergency and Relief Services\nGovernment Administration\nExecutive Offices\nLaw Enforcement\nVocational Rehabilitation Services\nPublic Safety\nPublic Policy Offices\nAdvertising Services\nChild Day Care Services\nNewspaper Publishing\nPerforming Arts and Spectator Sports\nBook and Periodical Publishing\nPrinting Services\nInformation Services\nLibraries\nTheater Companies\nEnvironmental Services\nFreight and Package Transportation\nDance Companies\nIndividual and Family Services\nReligious Institutions\nCivic and Social Organizations\nConsumer Services\nCircuses and Magic Shows\nTruck Transportation\nWarehousing and Storage\nSports Teams and Clubs\nAirlines and Aviation\nMaritime Transportation\nRacetracks\nIT Services and IT Consulting\nMarket Research\nPublic Relations and Communications Services\nDesign Services\nNon-profit Organizations\nFundraising\nStrategic Management Services\nWriting and Editing\nStaffing and Recruiting\nWholesale Motor Vehicles and Parts\nProfessional Training and Coaching\nVenture Capital and Private Equity Principals\nPolitical Organizations\nTranslation and Localization\nComputer Games\nEvents Services\nRetail Art Supplies\nMuseums\nAppliances, Electrical, and Electronics Manufacturing\nOnline Audio and Video Media\nWholesale Furniture and Home Furnishings\nHistorical Sites\nNanotechnology Research\nRetail Art Dealers\nMusicians\nZoos and Botanical Gardens\nTransportation, Logistics, Supply Chain and Storage\nPlastics Manufacturing\nComputer and Network Security\nWireless Services\nAmusement Parks and Arcades\nAlternative Dispute Resolution\nSecurity and Investigations\nFacilities Services\nOutsourcing and Offshoring Consulting\nWellness and Fitness Services\nAlternative Medicine\nMedia Production\nAnimation and Post-production\nLeasing Non-residential Real Estate\nCapital Markets\nWholesale Photography Equipment and Supplies\nThink Tanks\nPhilanthropic Fundraising Services\nGolf Courses and Country Clubs\nE-Learning Providers\nWholesale\nWholesale Computer Equipment\nSkiing Facilities\nWholesale Import and Export\nIndustrial Machinery Manufacturing\nPhotography\nHuman Resources Services\nRetail Office Equipment\nMental Health Care\nGraphic Design\nInternational Trade and Development\nBeverage Manufacturing\nAccommodation and Food Services\nWholesale Metals and Minerals\nRetail Luxury Goods and Jewelry\nGlass, Ceramics and Concrete Manufacturing\nPackaging and Containers Manufacturing\nHotels and Motels\nAutomation Machinery Manufacturing\nWholesale Appliances, Electrical, and Electronics\nGovernment Relations Services\nBed-and-Breakfasts, Hostels, Homestays\nHorticulture\nWholesale Hardware, Plumbing, Heating Equipment\nWholesale Machinery\nCaterers\nMobile Food Services\nRenewable Energy Power Generation\nBars, Taverns, and Nightclubs\nRenewable Energy Equipment Manufacturing\nEngineering Services\nServices for Renewable Energy\nDigital Accessibility Services\nAccessible Hardware Manufacturing\nAccessible Architecture and Design\nRobot Manufacturing\nRobotics Engineering\nRepair and Maintenance\nSurveying and Mapping Services\nVehicle Repair and Maintenance\nRetail Pharmacies\nClimate Technology Product Manufacturing\nClimate Data and Analytics\nAlternative Fuel Vehicle Manufacturing\nWholesale Recyclable Materials\nSmart Meter Manufacturing\nFuel Cell Manufacturing\nWholesale Luxury Goods and Jewelry\nRegenerative Design\nFuneral Services\nDeath Care Services\nEnergy Technology\nWholesale Paper Products\nElectronic and Precision Equipment Maintenance\nWholesale Drugs and Sundries\nWholesale Apparel and Sewing Supplies\nCommercial and Industrial Machinery Maintenance\nFarming, Ranching, Forestry\nReupholstery and Furniture Repair\nWholesale Footwear\nWholesale Food and Beverage\nFootwear and Leather Goods Repair\nPersonal and Laundry Services\nPersonal Care Services\nLaundry and Drycleaning Services\nWholesale Raw Farm Products\nWholesale Chemical and Allied Products\nPet Services\nWholesale Petroleum and Petroleum Products\nWholesale Alcoholic Beverages\nRanching and Fisheries\nInternet Marketplace Platforms\nRetail Motor Vehicles\nHousehold Services\nRetail Furniture and Home Furnishings\nRetail Appliances, Electrical, and Electronic Equipment\nForestry and Logging\nRetail Building Materials and Garden Equipment\nHealth and Human Services\nPublic Health\nPublic Assistance Programs\nFood and Beverage Retail\nAir, Water, and Waste Program Management\nConservation Programs\nHousing and Community Development\nCommunity Development and Urban Planning\nEconomic Programs\nOil, Gas, and Mining\nRetail Health and Personal Care Products\nCoal Mining\nMilitary and International Affairs\nMetal Ore Mining\nRetail Gasoline\nOperations Consulting\nNonmetallic Mineral Mining\nElectric Power Transmission, Control, and Distribution\nRetail Musical Instruments\nElectric Power Generation\nHydroelectric Power Generation\nRetail Books and Printed News\nFossil Fuel Electric Power Generation\nNuclear Electric Power Generation\nSolar Electric Power Generation\nEnvironmental Quality Programs\nGeothermal Electric Power Generation\nBiomass Electric Power Generation\nNatural Gas Distribution\nWater, Waste, Steam, and Air Conditioning Services\nRetail Florists\nRetail Office Supplies and Gifts\nWater Supply and Irrigation Systems\nSteam and Air-Conditioning Supply\nBuilding Construction\nRetail Recyclable Materials & Used Merchandise\nResidential Building Construction\nData Infrastructure and Analytics\nNonresidential Building Construction\nUtility System Construction\nElectrical Equipment Manufacturing\nOnline and Mail Order Retail\nSubdivision of Land\nHighway, Street, and Bridge Construction\nSpecialty Trade Contractors\nBuilding Structure and Exterior Contractors\nWind Electric Power Generation\nWineries\nBuilding Equipment Contractors\nRail Transportation\nBuilding Finishing Contractors\nGround Passenger Transportation\nUrban Transit Services\nInterurban and Rural Bus Services\nTaxi and Limousine Services\nAnimal Feed Manufacturing\nSchool and Employee Bus Services\nShuttles and Special Needs Transportation Services\nSugar and Confectionery Product Manufacturing\nPipeline Transportation\nFruit and Vegetable Preserves Manufacturing\nSightseeing Transportation\nMeat Products Manufacturing\nSeafood Product Manufacturing\nBaked Goods Manufacturing\nPostal Services\nBreweries\nDistilleries\nTechnology, Information and Media\nPeriodical Publishing\nBook Publishing\nMovies and Sound Recording\nApparel Manufacturing\nSound Recording\nSheet Music Publishing\nRadio and Television Broadcasting\nFashion Accessories Manufacturing\nLeather Product Manufacturing\nCable and Satellite Programming\nTelecommunications Carriers\nFootwear Manufacturing\nSatellite Telecommunications\nWomen's Handbag Manufacturing\nCredit Intermediation\nSavings Institutions\nLoan Brokers\nOil and Coal Product Manufacturing\nSecurities and Commodity Exchanges\nChemical Raw Materials Manufacturing\nInvestment Advice\nInsurance Carriers\nArtificial Rubber and Synthetic Fiber Manufacturing\nAgricultural Chemical Manufacturing\nInsurance Agencies and Brokerages\nClaims Adjusting, Actuarial Services\nFunds and Trusts\nInsurance and Employee Benefit Funds\nPension Funds\nPaint, Coating, and Adhesive Manufacturing\nTrusts and Estates\nSoap and Cleaning Product Manufacturing\nReal Estate and Equipment Rental Services\nLeasing Residential Real Estate\nPlastics and Rubber Product Manufacturing\nReal Estate Agents and Brokers\nEquipment Rental Services\nConsumer Goods Rental\nRubber Products Manufacturing\nClay and Refractory Products Manufacturing\nCommercial and Industrial Equipment Rental\nGlass Product Manufacturing\nWood Product Manufacturing\nProfessional Services\nLime and Gypsum Products Manufacturing\nAbrasives and Nonmetallic Minerals Manufacturing\nPrimary Metal Manufacturing\nIT System Design Services\nMarketing Services\nFabricated Metal Products\nCutlery and Handtool Manufacturing\nArchitectural and Structural Metal Manufacturing\nBoilers, Tanks, and Shipping Container Manufacturing\nConstruction Hardware Manufacturing\nSpring and Wire Product Manufacturing\nTurned Products and Fastener Manufacturing\nHolding Companies\nMetal Treatments\nIndustry Associations\nLandscaping Services\nProfessional Organizations\nMetal Valve, Ball, and Roller Manufacturing\nAdministrative and Support Services\nOffice Administration\nExecutive Search Services\nTemporary Help Services\nAgriculture, Construction, Mining Machinery Manufacturing\nTelephone Call Centers\nCollection Agencies\nCommercial and Service Industry Machinery Manufacturing\nHVAC and Refrigeration Equipment Manufacturing\nMetalworking Machinery Manufacturing\nSecurity Guards and Patrol Services\nSecurity Systems Services\nEngines and Power Transmission Equipment Manufacturing\nJanitorial Services\nWaste Collection\nWaste Treatment and Disposal\nCommunications Equipment Manufacturing\nAudio and Video Equipment Manufacturing\nEducation\nMeasuring and Control Instrument Manufacturing\nSecretarial Schools\nTechnical and Vocational Training\nMagnetic and Optical Media Manufacturing\nCosmetology and Barber Schools\nFlight Training\nElectric Lighting Equipment Manufacturing\nFine Arts Schools\nSports and Recreation Instruction\nHousehold Appliance Manufacturing\nLanguage Schools\nPhysicians\nCourts of Law\nCorrectional Institutions\nDentists\nFire Protection\n\nSelf-check checklist\n\t•\tAre all locations actually present in the ICP?\n\t•\tAre company names copied verbatim, without changes?\n\t•\tAre industries taken only from the allowed list above?\n\t•\tIs the number of objects ≤ 10?\n\t•\tAre there no extra or empty fields?\n\t•\tIs the JSON valid and in the required structure?\n\nFollow these instructions for each ICP request to generate accurate LinkedIn Sales Navigator filters."
+        }
+      },
+      "id": "2e548a51-f9a1-4ab9-9416-4cc0158e5820",
+      "name": "AI Agent: ICP -> LinkedIn search filters",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        -1824,
+        2480
+      ],
+      "executeOnce": false,
+      "notesInFlow": true,
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "1e7e7c6d-401d-4b6e-ba9c-1e9caacb3f89",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company Name'] }}",
+              "rightValue": ""
+            },
+            {
+              "id": "5fa79c84-9e9a-4cf9-a3ed-3a84a286b734",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company URL'] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "712d237d-c0c9-4008-b0b5-81709ece37b9",
+      "name": "Company name is not empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -752,
+        2480
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3f21375a-b09c-464d-a82a-b37f7b6de87b",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company URL'] }}",
+              "rightValue": ""
+            },
+            {
+              "id": "96105806-c0b8-461d-8cc1-975d8936814c",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json[\"Product Summary\"] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "82c1c66d-137c-428b-bb16-aff796003ae7",
+      "name": "Website is not empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        528,
+        2336
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3f21375a-b09c-464d-a82a-b37f7b6de87b",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company URN'] }}",
+              "rightValue": ""
+            },
+            {
+              "id": "96105806-c0b8-461d-8cc1-975d8936814c",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Lead Posts Summary'] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "2a397c3e-a606-4368-9c9f-0f08e353c4a7",
+      "name": "Post summary is empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        672,
+        2848
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3f21375a-b09c-464d-a82a-b37f7b6de87b",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company URN'] }}",
+              "rightValue": ""
+            },
+            {
+              "id": "96105806-c0b8-461d-8cc1-975d8936814c",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company News Summary'] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b9b58f27-e248-4cd1-8c4a-b9912f94d54c",
+      "name": "Company news is empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        768,
+        3296
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "3f21375a-b09c-464d-a82a-b37f7b6de87b",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json[\"Company URN\"] }}",
+              "rightValue": ":"
+            },
+            {
+              "id": "96105806-c0b8-461d-8cc1-975d8936814c",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company Posts Summary'] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b41fff54-bd6f-4d9c-96f5-3e117b5dd9a4",
+      "name": "Company post is empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        752,
+        3664
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "loose"
+          },
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "140d284f-34c0-4bf4-bb88-b0a9bdbc80f7",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json[\"Lead Score\"] }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "id": "fb0f4333-3d02-41b0-99a3-3f2b02552209",
+      "name": "Lead Score is empty",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        3488,
+        3248
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o",
+          "cachedResultName": "GPT-4O"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "You are an expert in evaluating lead potential for our product.\nAnalyze the company’s and lead’s profile content, assessing their likelihood of interest in our product on a scale from 1 to 10 (where 1 indicates minimal potential, and 10 indicates maximum potential).\n\nKey evaluation criteria:\n\t•\tMentions of Hotels suppliers \n\t•\tMentions of Hotel Services\n\nEvaluation scale:\n\t•\t8–10 points: Clear mentions of both criteria, active engagement, and explicit interest.\n\t•\t5–7 points: Mention of one criterion or indirect indicators of interest in both criteria.\n\t•\t1–4 points: No clear mentions, or only weak indirect indicators of interest.\n\nYour answer must ONLY be a single number from 1 to 10, without any additional text.",
+              "role": "system"
+            },
+            {
+              "content": "=Lead posts summary:\n {{ $json[\"Posts summary\"] }}\nLead company website analysis:\n{{ $('Google Sheets11').item.json['Product Summary'] }}\n\nCompany news summary:\n{{ $('Google Sheets11').item.json['Company News'] }}\nCompany posts summary\n{{ $('Google Sheets11').item.json['Company post summary'] }}\nCompany descriptin\n{{ $json.Description }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ce30a32f-151f-4a94-895e-3a28cc7f78cb",
+      "name": "Company Score Analysis",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        3888,
+        3152
+      ],
+      "retryOnFail": true,
+      "typeVersion": 1.8,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "id": "189f2329-983c-409d-a30e-bd906bd5692d",
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "position": [
+        -2224,
+        3840
+      ],
+      "typeVersion": 1.3,
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cd898792-a224-459f-9027-97bc007c31df",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "={{ $json.output }}"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "401191e5-2d1d-4466-942c-73bd50140510",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -1904,
+        3552
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=repeat this sentence:  {{ $('ICP Agent').item.json.output }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are repeater"
+            }
+          ]
+        }
+      },
+      "id": "4ccbd5f9-e580-4449-9b00-e3f442e776d4",
+      "name": "Basic LLM Chain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        -1712,
+        3568
+      ],
+      "typeVersion": 1.5
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "id": "777d41d0-0832-493e-94ce-6088761866fb",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        -1920,
+        3840
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Conversation agent",
+        "height": 820,
+        "width": 2672
+      },
+      "id": "6a001789-f761-421e-a7e5-e9cc3c231be4",
+      "name": "Sticky Note24",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3328,
+        3344
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "4d0c7d09-934f-4327-9eed-e1c04b773166",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Company URL'] }}",
+              "rightValue": ""
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "8bcc379d-7de5-4e5e-8abf-ff5423ad266f",
+      "name": "If4",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -416,
+        3376
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1378370213,
+          "mode": "list",
+          "cachedResultName": "Leads Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=1378370213"
+        },
+        "options": {}
+      },
+      "id": "26e724f2-75fb-48fd-90f5-95822275049e",
+      "name": "Read companies",
+      "type": "n8n-nodes-base.googleSheets",
+      "maxTries": 5,
+      "position": [
+        -928,
+        2480
+      ],
+      "executeOnce": true,
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1378370213,
+          "mode": "list",
+          "cachedResultName": "Leads Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=1378370213"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Joined At": "={{ \n  $json.current_companies?.[0]?.joined \n    ? new Date($json.current_companies[0].joined * 1000).toISOString()\n    : ''\n}}\n",
+            "Name": "={{ $json.name }}",
+            "Profile URL": "={{ $json.url }}",
+            "Headline": "={{ $json.headline }}",
+            "Location": "={{ $json.location }}",
+            "Is Premium": "={{ $json.is_premium }}",
+            "Company Name": "={{ $json.current_companies[0].company.name }}",
+            "Company URL": "=",
+            "Industry": "={{ $json.current_companies[0].company.industry }}",
+            "Position": "={{ $json.current_companies[0].position }}",
+            "Company Description": "={{ $json.current_companies[0].description }}",
+            "Company Linkedin URL": "={{ $json.current_companies[0].company.url }}",
+            "Company Linkedin URN": "={{ $json.current_companies[0].company.urn }}"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Profile URL",
+              "displayName": "Profile URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Headline",
+              "displayName": "Headline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Is Premium",
+              "displayName": "Is Premium",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Linkedin URN",
+              "displayName": "Company Linkedin URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Linkedin URL",
+              "displayName": "Company Linkedin URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company URL",
+              "displayName": "Company URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Position",
+              "displayName": "Position",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Description",
+              "displayName": "Company Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Joined At",
+              "displayName": "Joined At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "57813b2e-56e3-411c-8ea6-d2cac413ca8f",
+      "name": "Save new companies",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1104,
+        2480
+      ],
+      "retryOnFail": true,
+      "typeVersion": 4.5,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.message }}",
+        "options": {
+          "systemMessage": "Your task is to interactively collect an Ideal Customer Profile (ICP) from the user.\n\nIMPORTANT:\n- Speak ONLY in natural language during the conversation.\n- Do NOT show JSON, objects, or structured data to the user at any time.\n\nConversation behavior:\n1. Introduce yourself and explain that you will collect information to build an Ideal Customer Profile.\n2. Briefly explain what information you will ask for.\n3. Immediately ask the first question about current_titles.\n\nData collection rules:\n- Ask ONE question at a time.\n- Acknowledge each answer before asking the next question.\n- Store all answers internally using memory.\n- If an answer is unclear, ask for clarification.\n- If the user says \"finish\", \"done\", or \"complete\", stop asking questions.\n\nRequired ICP fields:\n- current_titles\n- current_companies\n- location\n- industry\n- company_sizes\n- keywords\n- count\n\nOutput rules:\n- Until all fields are collected, set:\n  dataComplete = false\n- When ALL fields are collected OR the user finishes early:\n  - Stop asking questions\n  - Summarize the ICP naturally in the message\n  - Set dataComplete = true"
+        }
+      },
+      "id": "cc7e370c-3d8a-4cdc-9322-43e0f0137bb4",
+      "name": "ICP Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        -2272,
+        3552
+      ],
+      "typeVersion": 1.8
+    },
+    {
+      "parameters": {
+        "numberInputs": 5
+      },
+      "id": "00b3dabe-a5db-4561-b30e-130517c0295e",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        3104,
+        3136
+      ],
+      "typeVersion": 3.1
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"salesNavigatorParams\": {\n    \"current_titles\": \"CEO\",\n    \"location\": \"Gurgaon\",\n    \"industry\": \"Technology, Information and Internet\",\n  \"company_name\":\"facebook\",\n    \"company_sizes\": [\"51-200\"]\n  },\n  \"count\": 10\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1280,
+        2480
+      ],
+      "id": "bd08c18e-fce1-402b-bb6a-e91e0d8bc7fa",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 8) + 2 }}"
+      },
+      "id": "a1d4e976-ae5f-4d75-b669-54f59dce0d0e",
+      "name": "Random Delay (2-10 min)1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1184,
+        3872
+      ],
+      "webhookId": "ea7f2f38-9d4e-43dc-b222-77402b22a274"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 8) + 2 }}"
+      },
+      "id": "445d7144-6a48-4cbb-a8eb-3a6245ef4fab",
+      "name": "Random Delay (2-10 min)2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1168,
+        2896
+      ],
+      "webhookId": "ea7f2f38-9d4e-43dc-b222-77402b22a274"
+    },
+    {
+      "parameters": {
+        "amount": "={{ Math.floor(Math.random() * 8) + 2 }}"
+      },
+      "id": "78cffa21-561a-45fc-a7af-c0f9ab5649c5",
+      "name": "Random Delay (2-10 min)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -208,
+        3408
+      ],
+      "webhookId": "ea7f2f38-9d4e-43dc-b222-77402b22a274"
+    },
+    {
+      "parameters": {
+        "content": "REMINDERS\nIf company Linedin URN is not present- we have to deal with it"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -96,
+        3040
+      ],
+      "typeVersion": 1,
+      "id": "57f61751-9b85-47bd-9ac0-0ccf5cb6f59b",
+      "name": "Sticky Note28"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 953562872,
+          "mode": "list",
+          "cachedResultName": "Company_Profile",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=953562872"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Product Summary": "={{ $json.output }}",
+            "Company URN": "={{ $('Google Sheets3').item.json['Company URN'] }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company URL",
+              "displayName": "Company URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Industry",
+              "displayName": "Industry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Size",
+              "displayName": "Company Size",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company Description",
+              "displayName": "Company Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Product Summary",
+              "displayName": "Product Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ICP Fit Notes",
+              "displayName": "ICP Fit Notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Last Enriched At",
+              "displayName": "Last Enriched At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1024,
+        2144
+      ],
+      "id": "45f22618-c727-4551-b980-8880d3131891",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "81561a67-46af-4099-94ff-735d1760d807",
+              "name": "posts",
+              "value": "=[\n  {\n    \"text\": \"We are scaling our SaaS platform across the US and Europe. Excited about what's coming next!\",\n    \"created_at\": \"2024-11-10T09:00:00Z\",\n    \"likes_count\": 120,\n    \"comments_count\": 14,\n    \"permalink\": \"https://www.linkedin.com/feed/update/urn:li:activity:1\"\n  },\n  {\n    \"text\": \"Hiring engineers with strong backend and AI experience. DM me if interested.\",\n    \"created_at\": \"2024-10-28T12:30:00Z\",\n    \"likes_count\": 95,\n    \"comments_count\": 9,\n    \"permalink\": \"https://www.linkedin.com/feed/update/urn:li:activity:2\"\n  }\n]\n",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1392,
+        2848
+      ],
+      "id": "7856ca09-4c0e-4c33-b2f6-625d6613854f",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "posts",
+        "include": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        2848
+      ],
+      "id": "575a4b92-5a6b-41d9-b956-d24033034f47",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "81561a67-46af-4099-94ff-735d1760d807",
+              "name": "news",
+              "value": "=[\n  {\n    \"title\": \"Momentum Controls expands operations in India\",\n    \"summary\": \"Momentum Controls Software and Services announced expansion of its engineering and delivery teams in India to support global telecom clients.\",\n    \"source\": \"Economic Times\",\n    \"url\": \"https://economictimes.example.com/momentum-controls-expansion\",\n    \"published_at\": \"2024-11-12\"\n  },\n  {\n    \"title\": \"Momentum Controls partners with global telecom provider\",\n    \"summary\": \"The company entered a strategic partnership to provide OSS/BSS transformation services for a European telecom operator.\",\n    \"source\": \"Business Standard\",\n    \"url\": \"https://businessstandard.example.com/momentum-controls-partnership\",\n    \"published_at\": \"2024-10-28\"\n  },\n  {\n    \"title\": \"Momentum Controls focuses on AI-driven telecom solutions\",\n    \"summary\": \"Momentum Controls is investing in AI and automation to enhance telecom network optimization and customer experience platforms.\",\n    \"source\": \"TechCrunch India\",\n    \"url\": \"https://techcrunch.example.com/momentum-controls-ai\",\n    \"published_at\": \"2024-09-15\"\n  }\n]\n",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1200,
+        3296
+      ],
+      "id": "7662d665-cc3f-4292-bf95-0d830cbd1eb3",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "news",
+        "include": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1376,
+        3312
+      ],
+      "id": "56def739-717b-4c25-a2ba-33659201910b",
+      "name": "Split Out2"
+    },
+    {
+      "parameters": {
+        "content": "Have added company post summary ...instead user post summary has to be added"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1216,
+        2992
+      ],
+      "typeVersion": 1,
+      "id": "2fec910b-1b3e-483a-98f8-4bafc2da8267",
+      "name": "Sticky Note30"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cc4ef934-9ba6-46be-967b-1719663fd8e9",
+              "name": "posts",
+              "value": "=[\n  {\n    \"text\": \"We are scaling our SaaS platform across US and Europe. Excited about what's coming next!\",\n    \"created_at\": \"2024-11-10T09:00:00Z\",\n    \"permalink\": \"https://www.linkedin.com/feed/update/urn:li:activity:1\",\n    \"likes_count\": 120,\n    \"comments_count\": 14\n  },\n  {\n    \"text\": \"Hiring engineers with strong backend + AI experience. DM me.\",\n    \"created_at\": \"2024-10-28T12:30:00Z\",\n    \"permalink\": \"https://www.linkedin.com/feed/update/urn:li:activity:2\",\n    \"likes_count\": 87,\n    \"comments_count\": 9\n  }\n]\n",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1232,
+        3744
+      ],
+      "id": "438c8db9-38be-4dd5-af9a-9594351c9d7f",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "posts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1440,
+        3744
+      ],
+      "id": "91842e05-b311-48f9-848c-b6eee951fa0a",
+      "name": "Split Out3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const merged = {};\n\nfor (const item of items) {\n  const urn = item.json[\"Company URN\"];\n  if (!urn) continue;\n\n  if (!merged[urn]) {\n    merged[urn] = {};\n  }\n\n  for (const [key, value] of Object.entries(item.json)) {\n    if (\n      value !== undefined &&\n      value !== null &&\n      value !== \"\" &&\n      merged[urn][key] === undefined\n    ) {\n      merged[urn][key] = value;\n    }\n  }\n}\n\nreturn Object.values(merged).map(data => ({ json: data }));\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3248,
+        3216
+      ],
+      "id": "9cded36b-cbf1-4103-adeb-799cf60d057b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e0c643ed-b379-4cf7-a854-02f90ceb79db",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        2944,
+        2912
+      ],
+      "id": "2a6ceabc-bafb-4f97-9453-e048b66cdc93",
+      "name": "Filter",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        2912
+      ],
+      "id": "7cfdb5d4-5bf1-4dd4-922b-9261a5fe581b",
+      "name": "Sort1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const leads = items.map(item => {\n  const data = item.json;\n  return {\n    \"Name\": data.Name || \"\",\n    \"Company Name\": data[\"Current company\"] || data[\"Company Name\"] || \"\",\n    \"Position\": data.Position || \"\",\n    \"Headline\": data.Headline || \"\",\n    \"Location\": data.Location || \"\",\n    \"Lead Score\": data[\"Lead Score\"] || \"\",\n    \"Profile URL\": data[\"Profile URL\"] || \"\",\n    \"Company URL\": data[\"Company URL\"] || \"\",\n    \"Industry\": data.Industry || \"\"\n  };\n});\n\nreturn [{ json: leads }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3296,
+        2912
+      ],
+      "id": "785d9761-40d8-4993-981b-bfd2c2214fcb",
+      "name": "Code in JavaScript1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.apify.com/v2/actor-tasks/P4g9pYOg2rUXu9EUR/runs",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "apify_api_tR274z4EFnWOfef65fflSd09weEpqC0ANXY4"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"startUrls\": [\n    { \"url\": \"{{ $json['Company URL'] }}\" }\n  ],\n  \"maxCrawlDepth\": 2,\n  \"maxPagesPerCrawl\": 3,\n  \"sameDomainOnly\": true,\n  \"removeBoilerplate\": true,\n\n  \"includeUrlGlobs\": [\n    \"*about*\",\n    \"*service*\",\n    \"*solution*\",\n    \"*contact*\",\n    \"*support*\",\n    \"*faq*\"\n  ],\n\n  \"excludeUrlGlobs\": [\n    \"*blog*\",\n    \"*news*\",\n    \"*career*\",\n    \"*privacy*\",\n    \"*terms*\"\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        960,
+        4272
+      ],
+      "id": "b5da4c38-704d-4746-8c71-26472646cf64",
+      "name": "HTTP Request",
+      "retryOnFail": false,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/actor-tasks/P4g9pYOg2rUXu9EUR/runs/last",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "clean",
+              "value": "true"
+            },
+            {
+              "name": "format",
+              "value": "json"
+            },
+            {
+              "name": "token",
+              "value": "apify_api_tR274z4EFnWOfef65fflSd09weEpqC0ANXY4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1344,
+        4272
+      ],
+      "id": "0b615185-7d94-4049-8dc8-f98a9e94be93",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an AI automation sales strategist.\n\nIMPORTANT LOGIC:\n- Missing or weak features on a website (e.g. no chatbot, no FAQ, poor engagement) are SALES OPPORTUNITIES.\n- A company is PITCH_WORTHY if clear gaps exist that AI or automation can realistically fix.\n\nYour task:\n1. Classify the company as either:\n   - PITCH_WORTHY (clear AI/automation opportunity exists)\n   - NOT_PITCH_WORTHY (no meaningful AI opportunity)\n2. Explain the reasoning clearly.\n3. Recommend 1–2 AI or automation solutions ONLY if the company is PITCH_WORTHY.\n\nRules:\n- If you recommend any solution, classification MUST be PITCH_WORTHY.\n- Do NOT penalize the company for missing features.\n- Be practical and sales-oriented.\n- Keep the response under 150 words.\n\nWebsite analysis:\n{{ $json.ai_context }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2176,
+        4272
+      ],
+      "id": "081d4a20-979a-4aaf-8d95-bb5f7c747183",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2176,
+        4544
+      ],
+      "id": "deaabc83-c28e-4bf9-96be-388712dc755a",
+      "name": "OpenAI Chat Model3",
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 529250110,
+          "mode": "list",
+          "cachedResultName": "Aplify Testing",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=529250110"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URN": "={{ $('Get row(s) in sheet2').item.json['Company URN'] }}",
+            "Lead Fit": "={{ $json.ai_fit }}",
+            "Recommended Solutions": "={{ $json.recommended_solutions }}",
+            "Pitch Reasoning": "={{ $json.pitch_reasoning }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URL",
+              "displayName": "Company URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Fit",
+              "displayName": "Lead Fit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Recommended Solutions",
+              "displayName": "Recommended Solutions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pitch Reasoning",
+              "displayName": "Pitch Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2752,
+        4272
+      ],
+      "id": "b9643340-9a0f-4d13-9aac-3f768413a984",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1136,
+        4272
+      ],
+      "id": "a41f3be7-e437-452c-a739-4e0733d28082",
+      "name": "Wait",
+      "webhookId": "021453e0-7f58-4a11-9343-dcceeaf4a4eb"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 529250110,
+          "mode": "list",
+          "cachedResultName": "Aplify Testing",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=529250110"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        4272
+      ],
+      "id": "93cf7131-6201-4f39-9a45-b288059d4bb4",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{ $json.data.defaultDatasetId }}/items",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "apify_api_tR274z4EFnWOfef65fflSd09weEpqC0ANXY4"
+            },
+            {
+              "name": "clean",
+              "value": "true"
+            },
+            {
+              "name": "limit",
+              "value": "5"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1552,
+        4272
+      ],
+      "id": "f7843ad6-bfad-4c21-9f5a-7251982286f8",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = items[0].json;\n\n// basic signals (safe defaults)\nconst hasContactPage =\n  (item.text || \"\").toLowerCase().includes(\"contact\");\n\nconst hasFAQ =\n  (item.text || \"\").toLowerCase().includes(\"faq\");\n\nconst pagesCovered = [\n  item.url || item.loadedUrl || \"unknown\"\n];\n\nconst rawEvidence = [\n  (item.text || \"\").substring(0, 400)\n];\n\nconst serviceComplexity =\n  (item.text || \"\").length > 1500 ? \"HIGH\" : \"MEDIUM\";\n\nreturn [{\n  json: {\n    website_signals: {\n      hasContactPage,\n      hasFAQ,\n      serviceComplexity,\n      pagesCovered,\n      rawEvidence\n    }\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        4272
+      ],
+      "id": "be0d1107-39cd-4842-9322-3be5d4169879",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiText = items[0].json.output || '';\n\n// --------------------\n// 1. AI FIT CLASSIFICATION\n// --------------------\nlet aiFit = 'UNKNOWN';\n\nif (aiText.includes('PITCH_WORTHY')) {\n  aiFit = 'PITCH_WORTHY';\n} else if (aiText.includes('NOT_PITCH_WORTHY')) {\n  aiFit = 'NOT_PITCH_WORTHY';\n}\n\n// --------------------\n// 2. RECOMMENDED SOLUTIONS EXTRACTION\n// --------------------\nconst recommendedSolutions = aiText\n  .split('\\n')\n  .filter(line =>\n    line.toLowerCase().includes('chatbot') ||\n    line.toLowerCase().includes('automation') ||\n    line.toLowerCase().includes('faq')\n  )\n  .map(line =>\n    line\n      .replace(/\\*\\*/g, '')\n      .replace(/^\\d+\\.\\s*/, '')\n      .trim()\n  );\n\n// --------------------\n// 3. CLEAN PITCH REASONING\n// --------------------\nlet cleanReasoning = aiText;\n\n// remove markdown\ncleanReasoning = cleanReasoning.replace(/\\*\\*/g, '');\n\n// remove excessive newlines\ncleanReasoning = cleanReasoning.replace(/\\n+/g, ' ');\n\n// shorten for CRM / sales use\ncleanReasoning = cleanReasoning.slice(0, 400).trim();\n\n// --------------------\n// FINAL OUTPUT\n// --------------------\nreturn [{\n  json: {\n    ai_fit: aiFit,\n    recommended_solutions: recommendedSolutions,\n    pitch_reasoning: cleanReasoning\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2544,
+        4272
+      ],
+      "id": "3c23bb02-0364-4ee4-9059-f859b2ba3de5",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = items[0].json.website_signals;\n\nconst context = `\nWebsite Analysis Summary:\n\n- Contact page present: ${s.hasContactPage ? \"Yes\" : \"No\"}\n- FAQ or Support section present: ${s.hasFAQ ? \"Yes\" : \"No\"}\n- Service complexity level: ${s.serviceComplexity}\n\nPages analyzed:\n${s.pagesCovered.join(\", \")}\n\nSample website content:\n${s.rawEvidence.join(\"\\n---\\n\")}\n`;\n\nreturn [{\n  json: {\n    ai_context: context\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1968,
+        4272
+      ],
+      "id": "94aa8840-60bb-45f8-9468-90295ab0e3ee",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "7cd52841-417a-443a-bc53-ae7bccf7c2c0",
+              "leftValue": "={{ $json['Lead Fit'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5a59b30d-898f-41aa-bda1-aedadde76ad6",
+              "leftValue": "={{ $json['Recommended Solutions'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "e0aeb0cd-a0ca-4363-9fe2-640846491f1f",
+              "leftValue": "={{ $json['Pitch Reasoning'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        528,
+        4272
+      ],
+      "id": "28c93fab-7fda-43d4-89ac-7a665c3729b5",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        736,
+        4176
+      ],
+      "id": "208beaaf-4ffd-42c4-b014-6199b779b7dd",
+      "name": "Loop Over Items5"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 529250110,
+          "mode": "list",
+          "cachedResultName": "Aplify Testing",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=529250110"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1056,
+        4112
+      ],
+      "id": "633cab4f-bbe0-435d-b0f5-33b07722c84a",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ccf40edf-f80c-44a5-a6a2-429ac63e62b0",
+              "leftValue": "={{ $json['Generated Pitch'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1440,
+        4112
+      ],
+      "id": "03a5b50b-e335-4ea2-97ae-7648819ad375",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2256,
+        4000
+      ],
+      "id": "717c458f-9cee-44db-9df3-5176bc75197a",
+      "name": "Loop Over Items9"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are writing a first LinkedIn message to someone you don’t know.\n\nWrite a short, casual, non-salesy message that feels like a genuine observation.\nThe goal is to start a conversation, not to pitch.\n\nGuidelines:\n- Max 3 short lines\n- Sound curious, not confident\n- Avoid phrases like “boost engagement”, “capture leads”, “instant support”\n- Mention ONE small improvement idea very lightly\n- End with a low-pressure question\n\nCompany context:\n{{ $json['Pitch Reasoning'] }}\n\nOpportunity hint:\n{{ $json['Recommended Solutions'] }}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        2560,
+        3968
+      ],
+      "id": "dcc74f26-340a-434c-af21-334fd804318a",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y",
+          "mode": "list",
+          "cachedResultName": "Business Directory listings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 529250110,
+          "mode": "list",
+          "cachedResultName": "Aplify Testing",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PL8LouKI6NeZwpAZoULy5pnsGULveQY30xvZOXRF40Y/edit#gid=529250110"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Company URN": "={{ $('Get row(s) in sheet2').item.json['Company URN'] }}",
+            "Generated Pitch": "={{ $json.output }}"
+          },
+          "matchingColumns": [
+            "Company URN"
+          ],
+          "schema": [
+            {
+              "id": "Company URL",
+              "displayName": "Company URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Company URN",
+              "displayName": "Company URN",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Fit",
+              "displayName": "Lead Fit",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Recommended Solutions",
+              "displayName": "Recommended Solutions",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Pitch Reasoning",
+              "displayName": "Pitch Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Generated Pitch",
+              "displayName": "Generated Pitch",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2688,
+        3792
+      ],
+      "id": "10db2a23-080d-4d98-b661-2d8c32dcb104",
+      "name": "Update row in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "FC7WVYLOpHgWYYeP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2560,
+        4144
+      ],
+      "id": "f786c329-aecf-4cb7-9f0b-5cf76faa350f",
+      "name": "OpenAI Chat Model4",
+      "credentials": {
+        "openAiApi": {
+          "id": "NsqWrq1RsF5hiz2h",
+          "name": "OpenAi"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get sitemap by url",
+        "operation": "map",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', `use company url to get a site-map`, 'string') }}"
+      },
+      "id": "626d0723-c154-49dc-92d9-fb0c2667dd1b",
+      "name": "HDW Site-map",
+      "type": "n8n-nodes-hdw.hdwWebParserTool",
+      "position": [
+        1312,
+        2592
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "4kHvz54EQlrV1biX",
+          "name": "HDW LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Parse info from website by url",
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}"
+      },
+      "id": "6460e95c-0c5e-4122-82d9-4217350e80c6",
+      "name": "HDW Parser",
+      "type": "n8n-nodes-hdw.hdwWebParserTool",
+      "position": [
+        1456,
+        2608
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "hdwLinkedinApi": {
+          "id": "4kHvz54EQlrV1biX",
+          "name": "HDW LinkedIn account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "64b5d606-288b-4ad9-896d-c4052f7f6f8e",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -2528,
+        3552
+      ],
+      "id": "490ae971-a8ec-4f68-87c4-4b04519bea60",
+      "name": "Webhook",
+      "webhookId": "64b5d606-288b-4ad9-896d-c4052f7f6f8e"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent: ICP -> LinkedIn search filters",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent: ICP -> LinkedIn search filters",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets6",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets8",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Sheets3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HDW Get Company Website": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets3": {
+      "main": [
+        [
+          {
+            "node": "Website is not empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets4": {
+      "main": [
+        [
+          {
+            "node": "Post summary is empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HDW Get User Posts": {
+      "main": [
+        [
+          {
+            "node": "Random Delay (2-10 min)2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Summarise user posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets5": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets6": {
+      "main": [
+        [
+          {
+            "node": "Company news is empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Summarise company news",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items3": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets7": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets8": {
+      "main": [
+        [
+          {
+            "node": "Company post is empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate2": {
+      "main": [
+        [
+          {
+            "node": "Summarise company posts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets9": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HDW Get Company Posts": {
+      "main": [
+        [
+          {
+            "node": "Random Delay (2-10 min)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise user posts": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise company news": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise company posts": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise company website": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets11": {
+      "main": [
+        [
+          {
+            "node": "Lead Score is empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items6": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets12",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Company Score Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets12": {
+      "main": [
+        [
+          {
+            "node": "Send Data to Dashboard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent: ICP -> LinkedIn search filters": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company name is not empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Website is not empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post summary is empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company news is empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company post is empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lead Score is empty": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Company Score Analysis": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "ICP Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent: ICP -> LinkedIn search filters",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "ICP Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "Random Delay (2-10 min)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read companies": {
+      "main": [
+        [
+          {
+            "node": "Company name is not empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save new companies": {
+      "main": [
+        [
+          {
+            "node": "Read companies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ICP Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Save new companies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Random Delay (2-10 min)": {
+      "main": [
+        [
+          {
+            "node": "HDW Get Company Website",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Split Out2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out2": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Split Out3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out3": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets11",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items5": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items9": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Summarise company website",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HDW Site-map": {
+      "ai_tool": [
+        [
+          {
+            "node": "Summarise company website",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HDW Parser": {
+      "ai_tool": [
+        [
+          {
+            "node": "Summarise company website",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "ICP Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "aa179d2f-560b-4328-8218-71dbb8b27848",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a0df640705d3c492bc49f452d23a8c6705d16a65dc5f84e6a13fb86f1374d867"
+  },
+  "id": "61547gYYY8gw0DKn_0Z3C",
+  "tags": []
+}
